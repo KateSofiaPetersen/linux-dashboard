@@ -1,0 +1,22 @@
+# === Ignorera loggar, cache, temporära filer ===
+logs/
+*.log
+*.tmp
+*.bak
+*.swp
+
+# === Ignorera exporter och genererade filer ===
+assets/pdf/
+assets/data/*.csv
+assets/data/*.json
+exports/
+*.pdf
+*.html~
+
+# === Ignorera systemfiler ===
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+__pycache__/
+*.pyc
