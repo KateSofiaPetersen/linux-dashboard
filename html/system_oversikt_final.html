@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <title>🧭 Systemöversikt – Linux Portfolio</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../assets/images/penguin.png" type="image/png">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="dark-mode">
+
+  <header class="stat-section">
+    <h1>🧭 Systemöversikt – Linux Portfolio</h1>
+    <p>En digital sammanställning av filtyper, struktur, dokumentationsformat och projektstatus.</p>
+    <p><strong>Skapad:</strong> 2025-10-27 09:00:01</p>
+    <p><strong>Period:</strong> 2025-10-21 → 2025-10-25 (4 dagar)</p>
+  </header>
+
+  <!-- 🧭 Systemöversikt -->
+  <section class="stat-section">
+    <h2>🧭 Översikt</h2>
+    <p>Systemöversikten visar helheten av dokumentationsmiljön i <code>~/docs-engine</code>.
+       Här ingår alla delar som används för att generera, analysera och presentera data:
+       mallar, loggar, skript, export, och automatisering. Syftet är att skapa en hållbar,
+       spårbar och visuellt sammanhängande dokumentationsstruktur.</p>
+  </section>
+
+  <!-- 📊 Statistik -->
+  <section class="stat-section">
+    <h2>📊 Statistik över filer</h2>
+    <table class="data-table">
+      <tr><th>Filtyp</th><th>Antal</th></tr>
+      <tr><td>Skript (.sh)</td><td>73</td></tr>
+      <tr><td>HTML-filer</td><td>175</td></tr>
+      <tr><td>Markdown (.md)</td><td>286</td></tr>
+      <tr><td>PDF-filer</td><td>39</td></tr>
+      <tr><td>Loggar (.log)</td><td>100</td></tr>
+      <tr><td>LaTeX (.tex)</td><td>1</td></tr>
+      <tr><td>Mappar</td><td>60</td></tr>
+      <tr><td><strong>Totalt antal filer</strong></td><td><strong>877</strong></td></tr>
+    </table>
+    <p style="text-align:center;">Visualisering av filfördelning visas nedan.</p>
+    <canvas id="fileChart" width="600" height="400" style="max-width:700px;margin:auto;display:block;"></canvas>
+  </section>
+
+  <!-- 📂 Projektstruktur -->
+  <section class="stat-section">
+    <h2>📂 Projektstruktur</h2>
+    <pre style="background:#111;border-radius:8px;padding:15px;overflow-x:auto;"><code>
+/home/kate/docs-engine
+├── assets
+│   ├── kate-template.css
+│   ├── screenshot
+│   └── templates
+├── Assignment.sh
+├── Assignment.md
+├── backups
+│   ├── 2025-10-15_23-10-28
+│   ├── 2025-10-15_23-13-45
+│   ├── 2025-10-15_23-22-41
+│   └── comments_2025-10-16_12-19-56
+├── comments
+│   ├── part1.md ... part20.md
+├── dashboard
+│   ├── assets, css, html, js, logs, scripts, src
+└── templates
+    └── kate-template.latex
+    </code></pre>
+    <p>Projektstrukturen visar en konsekvent ordning för data, mallar och exporter.
+       Varje mapp har ett tydligt syfte och används av automatiseringsskript.</p>
+  </section>
+
+  <!-- 📝 Dokumentationsformat -->
+  <section class="stat-section">
+    <h2>📝 Dokumentationsformat</h2>
+    <ul>
+      <li><strong>Markdown (.md):</strong> används för kommentarer, rapportdelar och inmatning.</li>
+      <li><strong>PDF:</strong> slutgiltiga labbrapporter, portfolio och presentationer.</li>
+      <li><strong>HTML:</strong> interaktiva dashboards och digitala vyer.</li>
+      <li><strong>LaTeX (.tex):</strong> mallar för professionell PDF-layout.</li>
+      <li><strong>CSS:</strong> färg- och typsnittsmallar för enhetlig design.</li>
+    </ul>
+  </section>
+
+  <!-- 🔄 Versionshantering & Backup -->
+  <section class="stat-section">
+    <h2>🔄 Versionshantering & Backup</h2>
+    <p>Backup sker automatiskt genom schemalagda export-skript.
+       Varje backupmapp innehåller kopior av loggar, kommentarer och skärmdumpar med tidsstämpel.
+       Strukturen möjliggör enkel återställning och historik per dag.</p>
+  </section>
+
+  <!-- 📌 Projektstatus & Framsteg -->
+  <section class="stat-section">
+    <h2>📌 Projektstatus & Framsteg</h2>
+    <p>Alla huvuddelar av Linux-portföljen är nu färdiga och automatiserade.
+       Pågående arbete fokuserar på dashboard-integration och AI-analys av loggdata.
+       Nästa steg är optimering av export till webbaserad delning och PDF-sammanställning.</p>
+  </section>
+
+  <!-- 🧪 Test & Loggar -->
+  <section class="stat-section">
+    <h2>🧪 Test & Loggar</h2>
+    <p>Systemet genererar kontinuerliga loggar för kommandon, analyser och schemalagda körningar.
+       Loggfilerna används för att beräkna aktivitet, analysera kommandokategorier
+       och generera statistik för rapporter och dashboard.</p>
+  </section>
+
+  <!-- 📷 Media & Skärmdumpar -->
+  <section class="stat-section">
+    <h2>📷 Media & Skärmdumpar</h2>
+    <p>Bilder från katalogen <code>assets/screenshot/</code> används i rapporter
+       för att visa kommandon, terminalresultat och visuella framsteg.</p>
+  </section>
+
+  <!-- 📚 Resurser & Referenser -->
+  <section class="stat-section">
+    <h2>📚 Resurser & Referenser</h2>
+    <ul>
+      <li><a href="../templates/kate-template.latex" style="color:#90caf9;">LaTeX-mall</a></li>
+      <li><a href="../css/style.css" style="color:#90caf9;">Dashboard-CSS</a></li>
+      <li><a href="kontrollrapport_final.html" style="color:#90caf9;">Kontrollrapport – Sammanfattning</a></li>
+    </ul>
+  </section>
+
+  <!-- 🧠 AI-BEDÖMNING -->
+  <section class="stat-section">
+    <h2>🧠 AI-bedömning</h2>
+    <blockquote>
+      Systemöversikten visar en mycket välorganiserad miljö som tydligt reflekterar
+      Kates styrka inom strukturering, automationsflöden och dokumentationsdisciplin.
+      Det här arbetet motsvarar en avancerad förståelse för både Linux-miljöer
+      och metodisk teknisk dokumentation.
+    </blockquote>
+  </section>
+
+  <!-- === EXPORT & FOOTER === -->
+  <section class="export-buttons" style="text-align:center;">
+    <button onclick="window.print()">🖨️ Skriv ut</button>
+    <a href="../assets/pdf/system_oversikt.pdf" download>📥 Ladda ner PDF</a>
+    <a href="../index.html">⬅️ Tillbaka till dashboard</a>
+  </section>
+
+  <footer id="footer-info" style="margin-top:50px;text-align:center;padding:20px 0;color:#aaa;">
+    <p>
+      © 2025 Kate Sofia Petersen |
+      <a href="min_utveckling.html" style="color:#90caf9;text-decoration:none;">🌱 Visa min utveckling</a><br>
+      <small id="lastUpdated">Laddar senast uppdaterad tid...</small>
+    </p>
+  </footer>
+
+  <script>
+    // Diagram för filfördelning
+    const ctx = document.getElementById('fileChart');
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Skript (.sh)', 'HTML', 'Markdown', 'PDF', 'Loggar', 'LaTeX'],
+          datasets: [{
+            data: [73, 175, 286, 39, 100, 1],
+            backgroundColor: ['#90caf9','#64b5f6','#42a5f5','#2196f3','#1976d2','#0d47a1']
+          }]
+        },
+        options: {
+          plugins: {
+            legend: { position: 'bottom', labels: { color: '#ccc' } }
+          }
+        }
+      });
+    }
+
+    // Footer "senast uppdaterad"
+    document.getElementById("lastUpdated").textContent =
+      "Senast uppdaterad: " + new Date(document.lastModified).toLocaleString("sv-SE");
+  </script>
+
+</body>
+</html>

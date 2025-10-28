@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <title>Linux Assignments – Kate Sofia Petersen</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/collapsible.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Linux Assignments – Portfolio</h1>
+    <p>Författare: Kate Sofia Petersen</p>
+    <p>Datum: 2025-10-25</p>
+  </header>
+
+  <!-- ===== Part 1 ===== -->
+  <section>
+    <h2>Part 1 – System and User Information 🟢 klar</h2>
+    <h3>📖 Objective</h3>
+    <p>Display system and user information including kernel version, current user, and date/time.</p>
+
+    <h3>📔 Comment</h3>
+    <p>These commands provide essential system and user identity information useful for system administration.</p>
+
+    <h3>🚀 Commands</h3>
+    <pre><code>
+uname -a   → shows system information including kernel version
+whoami     → shows the current user
+date       → shows the current date and time
+    </code></pre>
+
+    <h3>🖼️ Screenshot</h3>
+    <img src="../assets/screenshots/part1.png" alt="Screenshot Part 1">
+
+    <section class="collapsible">
+      <button class="collapsible-header">📂 Logg / Historik</button>
+      <div class="collapsible-content">
+<pre><code>
+2025-10-20 12:00:01 uname -a
+2025-10-20 12:00:05 whoami
+2025-10-20 12:00:10 date
+</code></pre>
+      </div>
+    </section>
+  </section>
+
+  <!-- ===== Part 2 ===== -->
+  <section>
+    <h2>Part 2 – Commands with Flags and Arguments 🟡 pågår</h2>
+    <h3>📖 Objective</h3>
+    <p>Use commands with flags and arguments to customize output.</p>
+
+    <h3>📔 Comment</h3>
+    <p>Flags and arguments modify command behavior and output. These examples demonstrate listing files with details and searching text ignoring case.</p>
+
+    <h3>🚀 Commands</h3>
+    <pre><code>
+ls -l /home             → lists files with details in /home
+grep -i "test" file.txt → searches for "test" in file.txt, ignoring case
+    </code></pre>
+
+    <h3>🖼️ Screenshot</h3>
+    <img src="../assets/screenshots/part2.png" alt="Screenshot Part 2">
+
+    <section class="collapsible">
+      <button class="collapsible-header">📂 Logg / Historik</button>
+      <div class="collapsible-content">
+<pre><code>
+2025-10-21 10:01:01 ls -l
+2025-10-21 10:01:05 grep bashrc /etc/passwd
+</code></pre>
+      </div>
+    </section>
+  </section>
+
+  <!-- ===== Repeat samma struktur för Part 3 ... Part 20 ===== -->
+  <!-- Varje del har Objective, Comment, Commands, Screenshot, Logg -->
+
+  <footer>
+    <p>© 2025 Kate Sofia Petersen</p>
+  </footer>
+</body>
+</html>

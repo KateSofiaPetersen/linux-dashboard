@@ -1,0 +1,132 @@
+🧩 === Startar full daglig uppdatering: Tue Oct 28 08:47:29 AM CET 2025 ===
+----------------------------------------------
+→ Uppdaterar systeminfo...
+✅ Systeminfo sparad till /home/kate/docs-engine/dashboard/assets/data/systeminfo.json
+awk: cannot open "/home/kate/docs-engine/dashboard/utvecklingsoversikt.html" (No such file or directory)
+🚀 HTML-sidan uppdaterad med aktuell systeminfo: /home/kate/docs-engine/dashboard/utvecklingsoversikt.html
+→ Uppdaterar inloggningsdata...
+✅ Dashboard uppdaterad: /home/kate/docs-engine/exports/html/login_dashboard.html
+→ Uppdaterar kommandostatistik...
+/home/kate/docs-engine/dashboard/scripts/generate_command_stats.sh: line 15: ../assets/data/command_stats.csv: No such file or directory
+/home/kate/docs-engine/dashboard/scripts/generate_command_stats.sh: line 23: ../assets/data/command_stats.csv: No such file or directory
+/home/kate/docs-engine/dashboard/scripts/generate_command_stats.sh: line 23: ../assets/data/command_stats.csv: No such file or directory
+/home/kate/docs-engine/dashboard/scripts/generate_command_stats.sh: line 23: ../assets/data/command_stats.csv: No such file or directory
+/home/kate/docs-engine/dashboard/scripts/generate_command_stats.sh: line 23: ../assets/data/command_stats.csv: No such file or directory
+/home/kate/docs-engine/dashboard/scripts/generate_command_stats.sh: line 23: ../assets/data/command_stats.csv: No such file or directory
+✅ Statistik genererad i ../assets/data/command_stats.csv
+📊 Analyserar kommandon från /home/kate/docs-engine/dashboard/logs/command_history_with_timestamps.txt ...
+✅ Statistik sparad till: /home/kate/docs-engine/dashboard/assets/data/command_stats.csv
+→ Uppdaterar tidslinje (commands_per_day.csv)...
+/home/kate/docs-engine/dashboard/scripts/generate_timeline.sh: line 7: ../assets/data/commands_per_day.csv: No such file or directory
+/home/kate/docs-engine/dashboard/scripts/generate_timeline.sh: line 9: ../assets/data/commands_per_day.csv: No such file or directory
+✅ Tidslinje-data genererad i ../assets/data/commands_per_day.csv
+→ Analyserar docs-engine för systemöversikt...
+🚀 Genererar systemöversikt från /home/kate/docs-engine ...
+✅ Översikt skapad: /home/kate/docs-engine/dashboard/html/system_oversikt.html
+→ Genererar projektstruktur (2 nivåer)...
+🚧 Genererar projektstruktur (2 nivåer)...
+✅ Projektstruktur sparad i: /home/kate/docs-engine/dashboard/assets/data/project_structure.html
+→ Uppdaterar sida: kontrollrapport_final.html
+→ Uppdaterar sida: kontrollrapport.html
+→ Uppdaterar sida: layout_master.html
+→ Uppdaterar sida: loggar.html
+→ Uppdaterar sida: mentor_feedback.html
+→ Uppdaterar sida: min_utveckling.html
+→ Uppdaterar sida: system_oversikt_final.html
+→ Uppdaterar sida: system_oversikt.html
+→ Uppdaterar sida: utvecklingsoversikt.html
+→ Infogar uppdateringstid i system_oversikt.html
+→ Uppdaterar AI-kompetens...
+Analyserar kommandon och beräknar kompetensnivåer...
+✅ Kompetensdata uppdaterad i: /home/kate/docs-engine/dashboard/assets/data/ai_competence.json
+🧠 Uppdaterar AI-kompetensbedömning...
+→ Kör /home/kate/docs-engine/dashboard/scripts/analysera_docs_engine.sh
+→ Kör /home/kate/docs-engine/dashboard/scripts/analysera_utveckling.sh
+Analyserar kommandon och beräknar kompetensnivåer...
+✅ Kompetensdata uppdaterad i: /home/kate/docs-engine/dashboard/assets/data/ai_competence.json
+✅ AI-kommentar uppdaterad: /home/kate/docs-engine/dashboard/assets/data/ai_comment.txt
+🗓️  Lagt till ny rad i historikfilen (/home/kate/docs-engine/dashboard/assets/data/ai_competence_history.csv)
+→ Kopierar PDF-rapporter...
+→ Rensar struktur & gamla loggar...
+🚀 Rensar och strukturerar mappar i /home/kate/docs-engine/dashboard ...
+✅ Strukturen är nu uppdaterad!
+/home/kate/docs-engine/dashboard
+├── archive
+├── assets
+│   ├── data
+│   ├── images
+│   ├── js
+│   ├── md
+│   ├── pdf
+│   ├── screenshots
+│   └── svg
+├── assignments
+│   ├── commands_per_part.conf
+│   ├── generate_assignments.sh
+│   ├── logs
+│   └── output
+├── css
+│   └── style.css
+├── html
+│   ├── kontrollrapport_final.html
+│   ├── kontrollrapport.html
+│   ├── layout_master.html
+│   ├── loggar.html
+│   ├── mentor_feedback.html
+│   ├── min_utveckling.html
+│   ├── system_oversikt_final.html
+│   ├── system_oversikt.html
+│   └── utvecklingsoversikt.html
+├── index.html
+├── js
+├── logs
+│   ├── ai_update.log
+│   ├── analyze_login_times.json
+│   ├── command_history_with_timestamps.txt
+│   ├── task_status.log
+│   ├── update_all_2025-10-26_22-07-42.log
+│   ├── update_all_2025-10-26_23-31-11.log
+│   ├── update_all_2025-10-27_19-00-01.log
+│   ├── update_all_2025-10-27_23-55-38.log
+│   ├── update_all_2025-10-28_00-36-31.log
+│   ├── update_all_2025-10-28_00-37-51.log
+│   └── update_all_2025-10-28_08-47-29.log
+├── min_utveckling.html
+├── scripts
+│   ├── analysera_docs_engine.sh
+│   ├── analysera_kompetens.sh
+│   ├── analysera_utveckling.sh
+│   ├── assignment_template.html
+│   ├── cleanup_structure.sh
+│   ├── generate_assignment.sh
+│   ├── generate_command_stats_full.sh
+│   ├── generate_command_stats.sh
+│   ├── generate_project_structure.sh
+│   ├── generate_report.html
+│   ├── generate_report.sh
+│   ├── generate_script_pages.sh
+│   ├── generate_systeminfo.sh
+│   ├── generate_task_pages.sh
+│   ├── generate_timeline.sh
+│   ├── parse_update_logs.sh
+│   ├── update_all.sh
+│   └── update_competence_ai.sh
+├── src
+│   ├── partials
+│   └── templates
+└── tasks
+
+22 directories, 43 files
+→ Uppdaterar AI-kompetens...
+Analyserar kommandon och beräknar kompetensnivåer...
+✅ Kompetensdata uppdaterad i: /home/kate/docs-engine/dashboard/assets/data/ai_competence.json
+🧠 Uppdaterar AI-kompetensbedömning...
+→ Kör /home/kate/docs-engine/dashboard/scripts/analysera_docs_engine.sh
+→ Kör /home/kate/docs-engine/dashboard/scripts/analysera_utveckling.sh
+Analyserar kommandon och beräknar kompetensnivåer...
+✅ Kompetensdata uppdaterad i: /home/kate/docs-engine/dashboard/assets/data/ai_competence.json
+✅ AI-kommentar uppdaterad: /home/kate/docs-engine/dashboard/assets/data/ai_comment.txt
+🗓️  Lagt till ny rad i historikfilen (/home/kate/docs-engine/dashboard/assets/data/ai_competence_history.csv)
+→ Kopierar PDF-rapporter...
+----------------------------------------------
+✅ Alla uppdateringar klara: Tue Oct 28 08:47:30 AM CET 2025

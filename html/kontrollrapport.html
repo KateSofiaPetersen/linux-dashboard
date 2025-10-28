@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <title>Kontrollrapport – Linux Portfolio</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../assets/images/penguin.png" type="image/png">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../assets/js/skills_chart.js" defer></script>
+  <script src="../assets/js/timeline_chart.js" defer></script>
+</head>
+
+<body class="dark-mode">
+
+  <header class="stat-section">
+    <h1>📊 Kontrollrapport – Sammanfattning</h1>
+    <p>En helhetsvy över min Linux-utveckling, baserad på loggdata, kompetensprofil och aktivitet över tid.</p>
+  </header>
+
+  <!-- === SEKTION 1: KOMPETENSPROFIL === -->
+  <section class="stat-section">
+    <h2>📈 Kompetensprofil</h2>
+    <canvas id="skillsChart" width="700" height="500"
+      style="max-width:800px;margin:auto;display:block;"></canvas>
+  </section>
+
+  <!-- === SEKTION 2: AKTIVITET ÖVER TID === -->
+  <section class="stat-section">
+    <h2>🗓️ Aktivitet över tid</h2>
+    <canvas id="timelineChart" width="700" height="500"
+      style="max-width:800px;margin:auto;display:block;"></canvas>
+  </section>
+
+  <!-- === SEKTION 3: AI-SAMMANFATTNING === -->
+  <section class="stat-section">
+    <h2>🧠 AI-bedömning</h2>
+    <blockquote>
+      Kate har visat en tydlig och stadig progression inom Linux. 
+      Diagrammen visar stark aktivitet och djup förståelse för Bash-automatisering, 
+      logghantering och dokumentationsstruktur. 
+      Hennes arbete uppvisar avancerad kompetens i systemadministration 
+      och metodiskt lärande genom iterativa förbättringar.
+    </blockquote>
+  </section>
+
+  <!-- === SEKTION 4: EXPORT === -->
+  <section class="export-buttons" style="text-align:center;">
+    <button onclick="window.print()">🖨️ Skriv ut</button>
+    <a href="assets/pdf/kontrollrapport.pdf" download>📥 Ladda ner PDF</a>
+    <a href="index.html">⬅️ Tillbaka till dashboard</a>
+  </section>
+
+  <!-- === FOOTER MED SENAST UPPDATERAD === -->
+  <footer id="footer-info" style="margin-top:50px;text-align:center;padding:20px 0;color:#aaa;">
+    <p>
+      © 2025 Kate Sofia Petersen |
+      <a href="min_utveckling.html" style="color:#90caf9;text-decoration:none;">
+        🌱 Visa min utveckling
+      </a><br>
+      <small id="lastUpdated">Laddar senast uppdaterad tid...</small>
+    </p>
+  </footer>
+
+  <script>
+  async function loadFooterInfo() {
+    const paths = [
+      "assets/data/systeminfo.json",
+      "./assets/data/systeminfo.json",
+      "/assets/data/systeminfo.json"
+    ];
+    for (const path of paths) {
+      try {
+        const res = await fetch(path);
+        if (!res.ok) continue;
+        const data = await res.json();
+        document.getElementById("lastUpdated").textContent =
+          `🕓 Senast uppdaterad: ${data.last_update}`;
+        return;
+      } catch (err) {
+        console.warn(`Kunde inte läsa från ${path}:`, err);
+      }
+    }
+    document.getElementById("lastUpdated").textContent =
+      "❌ Kunde inte läsa uppdateringstid";
+  }
+  document.addEventListener("DOMContentLoaded", loadFooterInfo);
+  </script>
+
+</body>
+</html>

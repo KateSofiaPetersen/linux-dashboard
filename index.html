@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <title>Linux Portfolio Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="assets/images/penguin.png" type="image/png">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="assets/js/update_status.js" defer></script>
+
+  <script>
+  // === Markera aktiv knapp i menyn ===
+  document.addEventListener('DOMContentLoaded', () => {
+    const path = window.location.pathname.split('/').pop();
+    document.querySelectorAll('.menu-bar button').forEach(btn => {
+      if (btn.getAttribute('onclick')?.includes(path)) {
+        btn.style.background = '#90caf9';
+        btn.style.color = '#121212';
+        btn.style.fontWeight = '700';
+      }
+    });
+  });
+  </script>
+</head>
+
+<body class="dark-mode">
+
+  <!-- === SEKTION 1: Huvudrubrik + Systemaktivitet === -->
+  <section class="grid-header">
+    <div class="info-box">
+      <h1>Linux Portfolio Dashboard</h1>
+    <div id="system-status" class="system-status">
+      <p><strong>🖥️ Systemstatus:</strong> <span id="systemSummary">Laddar...</span></p>
+    </div>
+      <p><strong>Author:</strong> Kate Sofia Petersen</p>
+      <p><strong>System:</strong> kate-VMware-Virtual-Platform</p>
+      <p><strong>Period:</strong> Sedan 2023-10-10</p>
+    </div>
+
+    <div class="chart-box">
+      <h2>📈 Inloggad tid / dag</h2>
+      <canvas id="loginChart"></canvas>
+    </div>
+  </section>
+
+<!-- === SEKTION 2: VÅGRÄT MENY === -->
+<section class="menu-bar">
+  <button onclick="location.href='./html/system_oversikt.html'">🖥️ Systemöversikt</button>
+  <button onclick="location.href='./html/kontrollrapport_final.html'">📊 Kontrollrapport</button>
+  <button onclick="location.href='./html/min_utveckling.html'">🌱 Min utveckling</button>
+  <button onclick="location.href='./html/mentor_feedback.html'">🧠 Mentor & Feedback</button>
+  <button onclick="location.href='./assignments/output/assignments.html'">📘 Assignments</button>
+  <button onclick="location.href='./html/loggar.html'">🧾 Loggar</button>
+  <button onclick="location.href='./html/scripts.html'">⚙️ Skript</button>
+  <button onclick="location.href='./html/exporter.html'">📦 Exporter</button>
+</section>
+
+  <!-- === SEKTION 3: Aktivitetsstatistik === -->
+  <section class="stat-section">
+    <h2>📅 Aktivitetsstatistik</h2>
+    <table class="data-table">
+      <tr>
+        <th>Totalt antal dagar aktiv</th>
+        <th>Antal h/dag (snitt)</th>
+        <th>Unika kommandon</th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>12 / 12</td>
+        <td>7.4</td>
+        <td>80</td>
+        <td><button onclick="location.href='logs/command_history_with_timestamps.txt'">🔗 Visa logg</button></td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- === SEKTION 4: Kommandostatistik === -->
+  <section class="stat-section">
+    <h2>💻 Kommandostatistik</h2>
+    <table class="data-table">
+      <tr>
+        <th>Totalt antal kommandon</th>
+        <th>Unika kommandon</th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>348</td>
+        <td>80</td>
+        <td><button onclick="location.href='logs/command_history_with_timestamps.txt'">📜 Visa logg</button></td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- === SEKTION 5: Skriptpanel === -->
+  <section class="stat-section">
+    <h2>⚙️ Skriptpanel</h2>
+    <table class="data-table">
+      <tr>
+        <th>Skript</th>
+        <th>Funktion</th>
+        <th>Körs automatiskt</th>
+        <th>Senast körd</th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>generate_assignments.sh</td>
+        <td>Bygger rapport med loggar</td>
+        <td>✅ Cron</td>
+        <td>2025-10-25</td>
+        <td><button onclick="location.href='scripts/generate_assignments.html'">🔍 Visa mer</button></td>
+      </tr>
+      <tr>
+        <td>analyze_logins_dashboard.sh</td>
+        <td>Analyserar inloggningstider</td>
+        <td>✅ Cron</td>
+        <td>2025-10-25</td>
+        <td><button onclick="location.href='scripts/analyze_logins_dashboard.html'">🔍 Visa mer</button></td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- === FOOTER === -->
+<footer>
+  <p>© 2025 Kate Sofia Petersen | <a href="index.html">⬅️ Tillbaka till dashboard</a></p>
+  <p id="updateStatus" class="update-status"></p>
+o</footer>
+
+  <!-- === CHART SCRIPT === -->
+  <script>
+  // === Diagram över inloggad tid per dag ===
+  const ctx = document.getElementById('loginChart');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Mån','Tis','Ons','Tor','Fre','Lör','Sön'],
+      datasets: [{
+        label: 'Inloggad tid (timmar)',
+        data: [6.5,7.2,5.8,8.0,7.4,6.1,4.3],
+        backgroundColor: '#42a5f5',
+        borderRadius: 6
+      }]
+    },
+    options: {
+      scales: {
+        x: { ticks: { color:'#ccc' } },
+        y: { ticks: { color:'#ccc' }, beginAtZero:true }
+      },
+      plugins: { legend: { labels: { color:'#ccc' } } }
+    }
+  }); // <-- avslutar Chart.js-grafen korrekt
+</script>  <!-- STÄNGER GRAFENS SCRIPT -->
+
+<!-- === SYSTEMSTATUS === -->
+<script>
+async function loadSystemStatus() {
+  const path = "./assets/data/systeminfo.json"; // ✅ rätt sökväg
+
+  try {
+    const res = await fetch(path);
+    if (!res.ok) throw new Error("Filen hittades inte");
+    const data = await res.json();
+
+    const summary = `${data.hostname || 'Okänd värd'} | Kernel ${data.kernel || '?'} | Uptime ${data.uptime || '?'} | Disk ${data.disk || '?'}`;
+    const updated = `<small>Senast uppdaterad: ${data.timestamp || 'okänt'}</small>`;
+
+    document.getElementById("systemSummary").innerHTML = summary + "<br>" + updated;
+  } catch (err) {
+    console.warn(`Kunde inte läsa från ${path}:`, err);
+    document.getElementById("systemSummary").textContent = "❌ Kunde inte läsa systemstatus";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadSystemStatus);
+</script>
+
+  <!-- === AUTOMATISK STATUSRAD === -->
+  <script src="assets/js/update_status.js" defer></script>
+</body>
+</html>

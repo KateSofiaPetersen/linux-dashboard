@@ -1,0 +1,8 @@
+🧠 Uppdaterar AI-kompetensbedömning...
+→ Kör /home/kate/docs-engine/dashboard/scripts/analysera_docs_engine.sh
+🚀 Genererar systemöversikt från /home/kate/docs-engine ...
+✅ Översikt skapad: /home/kate/docs-engine/dashboard/html/system_oversikt.html
+→ Kör /home/kate/docs-engine/dashboard/scripts/analysera_utveckling.sh
+🚀 Utvecklingssida skapad: /home/kate/docs-engine/dashboard/min_utveckling.html
+✅ AI-kommentar uppdaterad: /home/kate/docs-engine/dashboard/assets/data/ai_comment.txt
+🗓️  Lagt till ny rad i historikfilen (/home/kate/docs-engine/dashboard/assets/data/ai_competence_history.csv)

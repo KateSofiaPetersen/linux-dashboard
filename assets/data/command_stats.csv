@@ -1,0 +1,8 @@
+Typ,Datum,Kommando,Kommentar
+System,2025-10-21 09:00:00,ls,"Använt 1 gånger"
+System,2025-10-21 09:01:10,mv,"Använt 1 gånger"
+System,2025-10-22 10:10:10,grep,"Använt 1 gånger"
+System,2025-10-22 11:30:22,pandoc,"Använt 1 gånger"
+System,2025-10-23 13:00:00,du,"Använt 1 gånger"
+System,2025-10-24 14:20:00,chmod,"Använt 1 gånger"
+System,2025-10-25 09:45:00,./generate_task_pages.sh,"Använt 1 gånger"

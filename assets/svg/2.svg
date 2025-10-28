@@ -1,0 +1,6 @@
+<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="200" fill="#121212"/>
+  <text x="50%" y="50%" font-size="20" fill="#81c784" text-anchor="middle" dominant-baseline="middle">
+    📈 Diagram 2 — Aktivitet över tid
+  </text>
+</svg>

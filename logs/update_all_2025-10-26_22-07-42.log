@@ -1,0 +1,26 @@
+🧩 Startar full daglig uppdatering: Sun Oct 26 10:07:42 PM CET 2025
+→ Uppdaterar systeminfo...
+✅ Systeminfo sparad till /home/kate/docs-engine/dashboard/assets/data/systeminfo.json
+awk: cannot open "/home/kate/docs-engine/dashboard/utvecklingsoversikt.html" (No such file or directory)
+🚀 HTML-sidan uppdaterad med aktuell systeminfo: /home/kate/docs-engine/dashboard/utvecklingsoversikt.html
+→ Uppdaterar inloggningsdata...
+✅ Dashboard uppdaterad: /home/kate/docs-engine/exports/html/login_dashboard.html
+→ Uppdaterar kommandostatistik...
+/home/kate/docs-engine/dashboard/scripts/generate_command_stats.sh: line 15: ../assets/data/command_stats.csv: No such file or directory
+/home/kate/docs-engine/dashboard/scripts/generate_command_stats.sh: line 23: ../assets/data/command_stats.csv: No such file or directory
+/home/kate/docs-engine/dashboard/scripts/generate_command_stats.sh: line 23: ../assets/data/command_stats.csv: No such file or directory
+/home/kate/docs-engine/dashboard/scripts/generate_command_stats.sh: line 23: ../assets/data/command_stats.csv: No such file or directory
+/home/kate/docs-engine/dashboard/scripts/generate_command_stats.sh: line 23: ../assets/data/command_stats.csv: No such file or directory
+/home/kate/docs-engine/dashboard/scripts/generate_command_stats.sh: line 23: ../assets/data/command_stats.csv: No such file or directory
+✅ Statistik genererad i ../assets/data/command_stats.csv
+→ Uppdaterar tidslinje...
+/home/kate/docs-engine/dashboard/scripts/generate_timeline.sh: line 7: ../assets/data/commands_per_day.csv: No such file or directory
+/home/kate/docs-engine/dashboard/scripts/generate_timeline.sh: line 9: ../assets/data/commands_per_day.csv: No such file or directory
+✅ Tidslinje-data genererad i ../assets/data/commands_per_day.csv
+→ Uppdaterar systemöversikt...
+🚀 Genererar systemöversikt från /home/kate/docs-engine ...
+✅ Översikt skapad: /home/kate/docs-engine/dashboard/html/system_oversikt.html
+→ Förnyar kontrollrapport.html (visas med ny data)
+→ Förnyar min_utveckling.html (visas med ny data)
+→ Förnyar utvecklingsoversikt.html (visas med ny data)
+✅ Alla uppdateringar klara: Sun Oct 26 10:07:43 PM CET 2025

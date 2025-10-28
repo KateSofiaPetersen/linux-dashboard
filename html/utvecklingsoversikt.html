@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧭 Linux Utvecklingsöversikt</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+  <header class="stat-section">
+    <h1>🧭 Linux Utvecklingsöversikt</h1>
+    <p><strong>Författare:</strong> Kate Sofia Petersen</p>
+    <p><strong>Period:</strong> 2023-10-10 – 2025-10-27</p>
+  </header>
+
+  <!-- === TRE DIAGRAM I EN RAD === -->
+  <section class="chart-grid">
+    <div class="chart-card" onclick="scrollToSection('activity-section')">
+      <h3>📊 Aktivitet</h3>
+      <p>Totala kommandon, genomsnitt per dag och aktiv tid.</p>
+      <canvas id="activityChart"></canvas>
+    </div>
+
+    <div class="chart-card" onclick="scrollToSection('competence-section')">
+      <h3>🧠 Kompetensprofil</h3>
+      <p>Styrkor inom system, nätverk, loggar och automation.</p>
+      <canvas id="skillsChart"></canvas>
+    </div>
+
+    <div class="chart-card" onclick="scrollToSection('system-section')">
+      <h3>🖥️ Systemdata</h3>
+      <p>Distribution, kernelversion, uptime och diskstatus.</p>
+      <canvas id="systemChart"></canvas>
+    </div>
+  </section>
+
+  <!-- === SEKTIONSBLOCK: AKTIVITET === -->
+  <section id="activity-section" class="stat-section">
+    <h2>📅 Aktivitet & Inlärning</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Antal dagar sedan installation</th>
+          <th>Totalt aktiva dagar</th>
+          <th>Totala aktiva timmar</th>
+          <th>Timmar per aktiv dag</th>
+          <th>Genomsnittlig aktiv tid/dag</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="daysSinceInstall">-</td>
+          <td id="activeDays">-</td>
+          <td id="totalHours">-</td>
+          <td id="hoursPerActiveDay">-</td>
+          <td id="avgHoursPerDay">-</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- === SEKTIONSBLOCK: KOMPETENS === -->
+  <section id="competence-section" class="stat-section">
+    <h2>🧠 Kompetensprofil</h2>
+    <canvas id="skillsChart2" style="max-width:800px;margin:auto;"></canvas>
+  </section>
+
+  <!-- === SEKTIONSBLOCK: SYSTEM === -->
+  <section id="system-section" class="stat-section">
+    <h2>🖥️ Systeminformation</h2>
+    <table class="data-table">
+      <thead>
+        <tr><th>Parameter</th><th>Värde</th></tr>
+      </thead>
+      <tbody id="systemInfoTable">
+        <tr><td>Distribution</td><td>Laddar...</td></tr>
+        <tr><td>Kernel</td><td>–</td></tr>
+        <tr><td>Uptime</td><td>–</td></tr>
+        <tr><td>Disk</td><td>–</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer style="text-align:center;margin-top:40px;padding:20px;">
+    <a href="../index.html" style="color:#90caf9;">🏠 Tillbaka till Dashboard</a> |
+    <a href="min_utveckling.html" style="color:#90caf9;">🌱 Min utveckling</a>
+  </footer>
+
+  <script src="../assets/js/skills_chart.js"></script>
+  <script src="../assets/js/system_charts.js"></script>
+  <script src="../assets/js/update_learning.js"></script>
+  <script>
+    function scrollToSection(id){
+      const el=document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth'});
+    }
+  </script>
+</body>
+</html>

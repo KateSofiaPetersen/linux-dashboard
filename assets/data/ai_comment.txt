@@ -1,0 +1,5 @@
+Kates nuvarande kompetensprofil visar styrkor inom shell-scripting (10/10)
+och filhantering (10/10). Automatiseringsnivån ligger på 2/10 med
+stabil progression i dokumentation (3/10). Logghantering bedöms till 7/10.
+Utvecklingen visar en tydlig mognad i arbetsflödet och en avancerad förståelse
+för systemautomation och självständigt problemlösande i Linuxmiljö.

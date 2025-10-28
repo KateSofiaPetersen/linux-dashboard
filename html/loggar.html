@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <title>🧾 Loggar & Systemanalys</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<body class="dark-mode">
+  <header class="stat-section">
+    <h1>🧾 Loggar & Systemanalys</h1>
+    <p>Automatisk översikt över installationer, uppdateringar och kommandostatistik.</p>
+  </header>
+
+  <!-- === SEKTION 1: INSTALLATIONER & KONFIGURATIONER === -->
+  <section class="stat-section">
+    <h2>⚙️ Installationer & Konfigurationer</h2>
+    <p>Tabellen nedan uppdateras automatiskt utifrån <code>update_all.log</code>-filerna.</p>
+    <input id="filterInput" type="text" placeholder="Filtrera (t.ex. 'update' eller 'AI-analys')"
+           style="width:100%;padding:8px;border-radius:6px;margin:10px 0;border:1px solid #444;background:#111;color:#eee;">
+    <table class="data-table" id="installTable">
+      <thead><tr><th>Typ</th><th>Datum</th><th>Kommentar</th></tr></thead>
+      <tbody><tr><td colspan="3" style="text-align:center;">Laddar...</td></tr></tbody>
+    </table>
+  </section>
+
+  <script>
+  async function loadInstallations() {
+    try {
+      const res = await fetch("../assets/data/installations_table.csv", { cache: "no-store" });
+      const text = await res.text();
+
+      const lines = text.trim().split("\n").slice(1);
+      const tbody = document.querySelector("#installTable tbody");
+      const toggleBtn = document.createElement("button");
+      toggleBtn.textContent = "⬇️ Visa fler";
+      toggleBtn.className = "expand-btn";
+      toggleBtn.style.cssText = "margin-top:10px;padding:6px 12px;border:none;background:#42a5f5;color:white;border-radius:8px;cursor:pointer;";
+      let expanded = false;
+
+      function render(limit = 10) {
+        tbody.innerHTML = "";
+        const slice = expanded ? lines.slice(-100).reverse() : lines.slice(-10).reverse();
+        slice.forEach(line => {
+          const [type, date, comment] = line
+            .split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/)
+            .map(s => s.replace(/^"|"$/g, ""));
+          const row = `<tr><td>${type}</td><td>${date}</td><td>${comment}</td></tr>`;
+          tbody.insertAdjacentHTML("beforeend", row);
+        });
+        toggleBtn.textContent = expanded ? "⬆️ Visa färre" : "⬇️ Visa fler";
+      }
+
+      render();
+
+      toggleBtn.onclick = () => {
+        expanded = !expanded;
+        render();
+      };
+
+      document.querySelector("#installTable").after(toggleBtn);
+
+      // Filtrering
+      document.getElementById("filterInput").addEventListener("input", e => {
+        const term = e.target.value.toLowerCase();
+        for (const tr of tbody.querySelectorAll("tr")) {
+          const match = tr.textContent.toLowerCase().includes(term);
+          tr.style.display = match ? "" : "none";
+        }
+      });
+
+    } catch (err) {
+      console.error("Fel vid laddning av installationsdata:", err);
+      document.querySelector("#installTable tbody").innerHTML =
+        `<tr><td colspan='3' style='text-align:center;color:#f77;'>⚠️ Kunde inte läsa installationsdata</td></tr>`;
+    }
+  }
+  document.addEventListener("DOMContentLoaded", loadInstallations);
+  </script>
+
+<!-- === SEKTION 2: KOMMANDOSTATISTIK === -->
+<section class="stat-section" id="command-stats">
+  <h2>💻 Kommando-statistik</h2>
+
+  <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- 📊 Kolumn 1: Tabell -->
+    <div style="flex:2;min-width:500px;">
+      <table id="commandTable" class="data-table" style="text-align:left;">
+        <thead>
+          <tr>
+            <th>Typ</th>
+            <th>Datum</th>
+            <th>Kommando</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="3" style="text-align:center;color:#888;">Laddar data...</td></tr>
+        </tbody>
+      </table>
+
+      <div style="text-align:center;margin-top:10px;">
+        <button id="loadMoreBtn">🔽 Visa fler</button>
+      </div>
+    </div>
+
+    <!-- 🔍 Kolumn 2: Filter och Summering -->
+    <div style="flex:1;min-width:300px;">
+      <input
+        id="filterInput"
+        type="text"
+        placeholder="🔍 Sök kommando eller typ..."
+        style="width:100%;padding:8px;border-radius:8px;border:none;margin-bottom:10px;"
+      >
+      <div id="summaryBox"
+           style="background:#222;padding:12px;border-radius:10px;line-height:1.6;color:#ccc;">
+        <strong>📊 Summering:</strong><br>
+        Totalt (ofiltrerat): <span id="totalAll">0</span><br>
+        Matchar filter: <span id="totalFiltered">0</span>
+      </div>
+
+      <div style="margin-top:15px;display:flex;gap:10px;">
+        <button onclick="loadCommands(true)">🔄 Uppdatera data</button>
+        <button onclick="window.print()">🖨️ Skriv ut</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+let allRows = [];
+let visibleCount = 10;
+
+// 📥 Hämta CSV och bygg tabell
+async function loadCommands(force=false) {
+  const tbody = document.querySelector("#commandTable tbody");
+  tbody.innerHTML = "<tr><td colspan='3' style='text-align:center;color:#888;'>Laddar...</td></tr>";
+  try {
+    const res = await fetch("../assets/data/full_command_log.csv?cache=" + (force?Date.now():"no"));
+    const text = await res.text();
+    const lines = text.trim().split("\n").slice(1);
+    allRows = lines.map(l => {
+      const parts = l.match(/"([^"]*)","([^"]*)","(.*)"/);
+      return parts ? { typ: parts[1], datum: parts[2], kommando: parts[3] } : null;
+    }).filter(Boolean);
+    updateTable();
+  } catch (err) {
+    console.error("Fel vid inläsning:", err);
+    tbody.innerHTML = "<tr><td colspan='3' style='text-align:center;color:#f77;'>⚠️ Kunde inte läsa kommandodata</td></tr>";
+  }
+}
+
+// 🔢 Uppdatera tabellinnehållet
+function updateTable() {
+  const filter = document.getElementById("filterInput").value.toLowerCase();
+  const tbody = document.querySelector("#commandTable tbody");
+  tbody.innerHTML = "";
+
+  const filtered = allRows.filter(r =>
+    r.typ.toLowerCase().includes(filter) || r.kommando.toLowerCase().includes(filter)
+  );
+
+  const rowsToShow = filtered.slice(-visibleCount).reverse();
+  for (const r of rowsToShow) {
+    tbody.insertAdjacentHTML("beforeend",
+      `<tr><td>${r.typ}</td><td>${r.datum}</td><td>${r.kommando}</td></tr>`);
+  }
+
+  document.getElementById("totalAll").textContent = allRows.length;
+  document.getElementById("totalFiltered").textContent = filtered.length;
+}
+
+// 🔽 Visa fler
+document.getElementById("loadMoreBtn").addEventListener("click", () => {
+  visibleCount += 20;
+  updateTable();
+});
+
+// 🔍 Filtrering
+document.getElementById("filterInput").addEventListener("input", updateTable);
+
+// Ladda vid start
+document.addEventListener("DOMContentLoaded", () => loadCommands());
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#aaa;">
+  © 2025 Kate Sofia Petersen | Linux Portfolio Dashboard
+</footer>
+
+<!-- === SEKTION 3: MENY === -->
+<section class="footer-nav">
+  <nav>
+    <a href="../index.html">🏠 Start</a>
+    <a href="system_oversikt.html">🖥️ Systemöversikt</a>
+    <a href="kontrollrapport.html">📊 Kontrollrapport</a>
+    <a href="min_utveckling.html">🌱 Min utveckling</a>
+    <a href="mentor_feedback.html">🧠 Mentor & Feedback</a>
+    <a href="../assignments/output/assignments.html">📘 Assignments</a>
+    <a href="loggar.html">🧾 Loggar</a>
+    <a href="scripts.html">⚙️ Skript</a>
+    <a href="exports.html">📦 Exporter</a>
+  </nav>
+</section>
+
+<style>
+.footer-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #111;
+  border-top: 1px solid #333;
+  z-index: 1000;
+  padding: 10px 0;
+}
+
+.footer-nav nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-nav a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-nav a:hover {
+  color: #4da3ff;
+  transform: translateY(-2px);
+}
+
+/* 🧩 Ger utrymme under innehållet så menyn inte täcker det */
+body {
+  padding-bottom: 80px;
+}
+</style>
+
+</body>
+</html>

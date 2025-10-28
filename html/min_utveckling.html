@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <title>🧠 Min Utveckling – Linux Portfolio</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../assets/images/penguin.png" type="image/png">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+async function loadCompetenceData() {
+  const response = await fetch('../assets/data/ai_competence.json');
+  const data = await response.json();
+
+  const labels = Object.keys(data);
+  const values = Object.values(data);
+
+  new Chart(document.getElementById('skillChart'), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Kompetensnivå',
+        data: values,
+        backgroundColor: '#42a5f5'
+      }]
+    },
+    options: {
+      scales: {
+        y: { beginAtZero: true, max: 10 },
+        x: { ticks: { color: '#ccc' } }
+      },
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', loadCompetenceData);
+</script>
+
+</head>
+
+<body class="dark-mode">
+
+  <header class="stat-section">
+    <h1>🧠 AI-utvärdering – Min Utveckling inom Linux</h1>
+    <p>Visualisering och bedömning av min kompetensnivå baserat på loggdata och praktiskt arbete i Linux-miljö.</p>
+  </header>
+
+  <!-- === SEKTION 1: Kompetensprofil === -->
+  <section class="stat-section">
+    <h2>📊 Kompetensprofil – Stapeldiagram</h2>
+    <canvas id="skillChart" width="700" height="500" style="max-width:800px;margin:auto;display:block;"></canvas>
+
+    <!-- 📈 Trend över tid -->
+    <h3 style="text-align:center;margin-top:40px;">📈 Utveckling över tid</h3>
+    <canvas id="trendChart" width="700" height="300" style="max-width:800px;margin:auto;display:block;"></canvas>
+  </section>
+
+  <!-- === SEKTION 2: AI-BEDÖMNING === -->
+  <section class="stat-section">
+    <h2>🧠 AI-Bedömning</h2>
+    <blockquote id="aiComment">
+      Laddar AI-bedömning...
+    </blockquote>
+  </section>
+
+  <!-- === SEKTION 3: Kompetensnivåer === -->
+  <section class="stat-section">
+    <h2>🧪 Kompetensnivåer baserat på loggdata</h2>
+    <table class="data-table">
+      <tr><th>Område</th><th>Nivå</th><th>Bedömning</th></tr>
+      <tr><td>Shell Scripting</td><td>7</td><td>Avancerad</td></tr>
+      <tr><td>System Automation</td><td>6</td><td>Medel</td></tr>
+      <tr><td>Cron Jobs</td><td>5</td><td>Grundläggande</td></tr>
+      <tr><td>File Management</td><td>8</td><td>Avancerad</td></tr>
+      <tr><td>Documentation</td><td>7</td><td>Avancerad</td></tr>
+      <tr><td>Backup Strategy</td><td>6</td><td>Medel</td></tr>
+      <tr><td>Monitoring & Logs</td><td>5</td><td>Grundläggande</td></tr>
+      <tr><td>Web Development</td><td>4</td><td>Grundläggande</td></tr>
+    </table>
+
+    <!-- 📘 Förklaring av kompetensnivåer -->
+    <h3 style="margin-top:30px;">📘 Förklaring av Kompetensnivåer</h3>
+    <table class="data-table">
+      <tr><th>Nivå</th><th>Benämning</th><th>Beskrivning</th></tr>
+      <tr><td>0–2</td><td>Nybörjare</td><td>Grundläggande förståelse, behöver handledning.</td></tr>
+      <tr><td>3–4</td><td>Grundläggande</td><td>Kan utföra enklare uppgifter självständigt.</td></tr>
+      <tr><td>5–6</td><td>Medel</td><td>Arbetar självständigt med vanliga uppgifter.</td></tr>
+      <tr><td>7–8</td><td>Avancerad</td><td>Skapar egna lösningar och hanterar komplexa problem.</td></tr>
+      <tr><td>9–10</td><td>Expert</td><td>Designar och förbättrar systemlösningar.</td></tr>
+    </table>
+  </section>
+
+  <!-- === EXPORT & FOOTER === -->
+  <section class="export-buttons" style="text-align:center;">
+    <button onclick="window.print()">🖨️ Skriv ut</button>
+    <a href="../assets/pdf/min_utveckling.pdf" download>📥 Ladda ner PDF</a>
+    <a href="../index.html">⬅️ Tillbaka till dashboard</a>
+  </section>
+
+  <!-- 🔄 Senast AI-analysen kördes -->
+  <p id="lastRun" style="text-align:center;color:#999;font-size:0.9em;"></p>
+  <script>
+    fetch('../logs/ai_update.log')
+      .then(r => r.text())
+      .then(t => {
+        const lines = t.trim().split('\n');
+        const lastLine = lines[lines.length - 1];
+        document.getElementById('lastRun').textContent =
+          "🔄 Senast AI-analysen kördes: " + new Date().toLocaleString("sv-SE");
+      })
+      .catch(() => {});
+  </script>
+
+  <!-- === FOOTER === -->
+  <footer id="footer-info" style="margin-top:50px;text-align:center;padding:20px 0;color:#aaa;">
+    <p>
+      © 2025 Kate Sofia Petersen |
+      <a href="system_oversikt_final.html" style="color:#90caf9;text-decoration:none;">🧭 Systemöversikt</a><br>
+      <small id="lastUpdated">Laddar senast uppdaterad tid...</small>
+    </p>
+  </footer>
+
+  <script>
+    // Stapeldiagram över kompetensnivåer
+    const ctx = document.getElementById('skillChart');
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: [
+            'Shell Scripting','System Automation','Cron Jobs',
+            'File Management','Documentation','Backup Strategy',
+            'Monitoring & Logs','Web Development'
+          ],
+          datasets: [{
+            label: 'Kompetensnivå',
+            data: [7,6,5,8,7,6,5,4],
+            backgroundColor: '#42a5f5'
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 10,
+              ticks: { color: '#ccc' },
+              title: { display: true, text: 'Nivå', color: '#ccc' }
+            },
+            x: { ticks: { color: '#ccc' } }
+          },
+          plugins: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: 'Kompetensnivå per område',
+              color: '#ccc'
+            }
+          }
+        }
+      });
+    }
+
+// === Trendgraf över tid (vänster till höger) ===
+const trendCtx = document.getElementById('trendChart');
+if (trendCtx) {
+  fetch('../assets/data/ai_competence_history.csv')
+    .then(r => r.text())
+    .then(csv => {
+      const rows = csv.trim().split('\n').slice(1); // hoppa över rubrik
+      const labels = [];
+      const avgLevels = [];
+
+      rows.forEach(row => {
+        const parts = row.split(',');
+        const date = parts[0];
+        const avg = parts.slice(1).map(Number).reduce((a,b)=>a+b,0) / (parts.length-1);
+        labels.push(date);
+        avgLevels.push(avg);
+      });
+
+      new Chart(trendCtx, {
+        type: 'line', // linjediagram för tydlig tidslinje
+        data: {
+          labels: labels, // datum på X-axeln
+          datasets: [{
+            label: 'Genomsnittlig kompetensnivå',
+            data: avgLevels,
+            borderColor: '#42a5f5',
+            backgroundColor: 'rgba(66,165,245,0.25)',
+            pointBackgroundColor: '#90caf9',
+            pointRadius: 5,
+            fill: true,
+            tension: 0.35 // mjuk kurva
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 10,
+              ticks: { color: '#ccc' },
+              title: { display: true, text: 'Kompetensnivå', color: '#ccc' }
+            },
+            x: {
+              ticks: { color: '#ccc', autoSkip: true, maxTicksLimit: 8 },
+              title: { display: true, text: 'Datum', color: '#ccc' }
+            }
+          },
+          plugins: {
+            legend: { labels: { color: '#ccc' } },
+            title: {
+              display: true,
+              text: 'Utveckling över tid',
+              color: '#ccc'
+            }
+          }
+        }
+      });
+    })
+    .catch(() => {});
+}
+    // Footer "senast uppdaterad"
+    document.getElementById("lastUpdated").textContent =
+      "Senast uppdaterad: " + new Date(document.lastModified).toLocaleString("sv-SE");
+  </script>
+
+<script>
+async function loadAIComment() {
+  try {
+    const res = await fetch('../assets/data/ai_comment.txt', { cache: "no-store" });
+    if (!res.ok) throw new Error("Filen hittades inte");
+    const text = await res.text();
+    const block = document.getElementById('aiComment');
+    block.textContent = text.trim() || "Ingen AI-bedömning tillgänglig just nu.";
+  } catch (err) {
+    document.getElementById('aiComment').textContent =
+      "⚠️ Kunde inte läsa AI-bedömning (" + err.message + ")";
+  }
+}
+document.addEventListener('DOMContentLoaded', loadAIComment);
+</script>
+
+</body>
+</html>

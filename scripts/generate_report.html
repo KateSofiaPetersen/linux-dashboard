@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <title>generate_report.sh – Skriptöversikt</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/collapsible.js" defer></script>
+</head>
+<body>
+  <nav class="navbar">
+    <button class="menu-toggle">☰</button>
+    <ul class="menu">
+      <li><a href="../index.html">🏠 Återgå till huvudsida</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <h1>generate_report.sh</h1>
+    <p><strong>Senast uppdaterad:</strong> 2025-10-25</p>
+    <p><strong>Syfte:</strong> [Fyll i manuellt]</p>
+  </header>
+
+  <section class="collapsible">
+    <button class="collapsible-header">🔧 Skriptinnehåll</button>
+    <div class="collapsible-content">
+      <pre><code>#!/bin/bash
+echo "🚀 Genererar rapport..."
+pandoc master_parts.md -o report.pdf --pdf-engine=xelatex</code></pre>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Kate Sofia Petersen</p>
+  </footer>
+</body>
+</html>
