@@ -60,47 +60,45 @@ echo "→ Infogar uppdateringstid i system_oversikt.html" | tee -a "$LOGFILE"
 NOW="$(date '+%Y-%m-%d %H:%M:%S')"
 sed -i "s|Senast uppdaterad:</strong> .*|Senast uppdaterad:</strong> $NOW|g" "$ROOT/html/system_oversikt.html" 2>/dev/null || true
 
+# =========================================================
 # 8️⃣ Uppdatera AI-kompetens & bedömning
+# =========================================================
 echo "→ Uppdaterar AI-kompetens..." | tee -a "$LOGFILE"
 bash "$ROOT/scripts/analysera_kompetens.sh" >>"$LOGFILE" 2>&1 || true
 bash "$ROOT/scripts/update_competence_ai.sh" >>"$LOGFILE" 2>&1 || true
 
+# =========================================================
 # 9️⃣ Kopiera PDF-rapporter till dashboard/assets/pdf
+# =========================================================
 echo "→ Kopierar PDF-rapporter..." | tee -a "$LOGFILE"
 mkdir -p "$ROOT/assets/pdf"
-cp -u "$HOME/docs-engine/exports/pdf/"*.pdf "$ROOT/assets/pdf/" 2>/dev/null || echo "⚠️  Inga nya PDF-filer att kopiera" | tee -a "$LOGFILE"
+cp -u "$HOME/docs-engine/exports/pdf/"*.pdf "$ROOT/assets/pdf/" 2>/dev/null || true
+echo "✅ PDF-rapporter kopierade." | tee -a "$LOGFILE"
 
+# =========================================================
 # 🔟 Städning och avslutning
+# =========================================================
 echo "→ Rensar struktur & gamla loggar..." | tee -a "$LOGFILE"
 bash "$ROOT/scripts/cleanup_structure.sh" >>"$LOGFILE" 2>&1 || true
+echo "✅ Struktur rensad och loggar uppdaterade." | tee -a "$LOGFILE"
 
-# 🧠 AI-kompetensanalys
-echo "→ Uppdaterar AI-kompetens..." | tee -a "$LOGFILE"
-bash "$ROOT/scripts/analysera_kompetens.sh" >>"$LOGFILE" 2>&1 || true
-bash "$ROOT/scripts/update_competence_ai.sh" >>"$LOGFILE" 2>&1 || true
+# =========================================================
+# 1️⃣1️⃣ Uppdatera mappstruktur för assignments
+# =========================================================
+echo "→ Genererar mappstruktur för assignments..." | tee -a "$LOGFILE"
+tree -L 2 -h -D "$ROOT/assignments" > "$ROOT/assignments/logs/assignments_tree.log"
+echo "✅ Mappstruktur uppdaterad." | tee -a "$LOGFILE"
 
-# 📄 Kopiera PDF-rapporter till dashboard/assets/pdf
-echo "→ Kopierar PDF-rapporter..." | tee -a "$LOGFILE"
-cp -u "$HOME/docs-engine/exports/pdf/"*.pdf "$ROOT/assets/pdf/" 2>/dev/null || echo "⚠️  Inga PDF-filer att kopiera" | tee -a "$LOGFILE"
-# 🌍 === Publicera till webbserver (Strato eller Canva) ===
-echo "→ Publicerar uppdaterad dashboard till webben..." | tee -a "$LOGFILE"
+# =========================================================
+# 1️⃣2️⃣ Publicera senaste ändringar till GitHub
+# =========================================================
+cd "$ROOT"
+echo "→ Pushar uppdateringar till GitHub..." | tee -a "$LOGFILE"
 
-# === Ange FTP-uppgifter ===
-FTP_SERVER="ftp.katepetersen.se"
-FTP_USER="DITT_ANVÄNDARNAMN_HÄR"
-FTP_PASS="DITT_LÖSENORD_HÄR"
+git add .
+git commit -m "Automatisk uppdatering: $(date '+%Y-%m-%d %H:%M:%S')" >>"$LOGFILE" 2>&1 || true
+git push origin main >>"$LOGFILE" 2>&1 || echo "⚠️  Kunde inte pusha till GitHub." | tee -a "$LOGFILE"
 
-# 🧩 Ladda upp hela dashboarden automatiskt
-lftp -u "$FTP_USER","$FTP_PASS" "$FTP_SERVER" <<EOF
-mirror -R ~/docs-engine/dashboard /dashboard
-bye
-EOF
-
-if [ $? -eq 0 ]; then
-  echo "✅ Dashboard publicerad till https://katepetersen.se/dashboard/" | tee -a "$LOGFILE"
-else
-  echo "⚠️  Misslyckades att ladda upp dashboard till webben." | tee -a "$LOGFILE"
-fi
-
+echo "✅ GitHub uppdaterad: https://github.com/KateSofiaPetersen/linux-dashboard" | tee -a "$LOGFILE"
 echo "----------------------------------------------" | tee -a "$LOGFILE"
 echo "✅ Alla uppdateringar klara: $(date)" | tee -a "$LOGFILE"

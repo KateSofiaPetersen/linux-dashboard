@@ -8,6 +8,7 @@
 <body>
 
 <body class="dark-mode">
+<script src="../assets/js/auth_check.js" defer></script>
   <header class="stat-section">
     <h1>🧾 Loggar & Systemanalys</h1>
     <p>Automatisk översikt över installationer, uppdateringar och kommandostatistik.</p>
@@ -200,6 +201,7 @@ document.addEventListener("DOMContentLoaded", () => loadCommands());
     <a href="loggar.html">🧾 Loggar</a>
     <a href="scripts.html">⚙️ Skript</a>
     <a href="exports.html">📦 Exporter</a>
+    <a href="#" id="logoutBtn">🚪 Logga ut</a>
   </nav>
 </section>
 
@@ -242,6 +244,8 @@ body {
   padding-bottom: 80px;
 }
 </style>
+
+<script src="../assets/js/logout.js"></script>
 
 </body>
 </html>

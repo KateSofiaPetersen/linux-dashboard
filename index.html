@@ -23,7 +23,28 @@
   </script>
 </head>
 
+<script>
+  // ✅ Kontrollera om användaren är inloggad
+  const currentUser = localStorage.getItem("loggedInUser");
+  if (!currentUser) {
+    // Om inte inloggad → skicka till login-sidan
+    window.location.href = "html/login_dashboard.html";
+  } else {
+    console.log("Inloggad som:", currentUser);
+  }
+</script>
+
 <body class="dark-mode">
+
+<script>
+  // Kontrollera om användaren är inloggad
+  const loggedInUser = localStorage.getItem("loggedInUser");
+
+  if (!loggedInUser) {
+    // Om ingen inloggning finns -> skicka till login-sidan
+    window.location.href = "html/login_dashboard.html";
+  }
+</script>
 
   <!-- === SEKTION 1: Huvudrubrik + Systemaktivitet === -->
   <section class="grid-header">
@@ -35,6 +56,7 @@
       <p><strong>Author:</strong> Kate Sofia Petersen</p>
       <p><strong>System:</strong> kate-VMware-Virtual-Platform</p>
       <p><strong>Period:</strong> Sedan 2023-10-10</p>
+      <p id="userDisplay" style="color:#4da3ff;font-size:0.9rem;"></p>
     </div>
 
     <div class="chart-box">
@@ -171,6 +193,11 @@ async function loadSystemStatus() {
 }
 
 document.addEventListener("DOMContentLoaded", loadSystemStatus);
+</script>
+
+<script>
+  const name = localStorage.getItem("loggedInUser");
+  if (name) document.getElementById("userDisplay").textContent = `👤 Inloggad som: ${name}`;
 </script>
 
   <!-- === AUTOMATISK STATUSRAD === -->
