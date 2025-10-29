@@ -1,41 +1,292 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <title>Mentorfeedback</title>
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧾 Mentor Feedback Dashboard</title>
+
+<style>
+body {
+  background-color: #f5f7fa;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  color: #222;
+  margin: 40px auto;
+  max-width: 1000px;
+  line-height: 1.6;
+}
+h1 {
+  text-align: center;
+  color: #0d47a1;
+}
+h2 {
+  color: #0d47a1;
+  border-bottom: 2px solid #e3eaf5;
+  padding-bottom: 6px;
+}
+section {
+  background: #fff;
+  border: 1px solid #e3eaf5;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  margin-bottom: 25px;
+  padding: 20px;
+}
+
+/* Formfält */
+label { display:block; margin-top:10px; font-weight:600; }
+input, select, textarea {
+  width:100%;
+  padding:8px;
+  border:1px solid #ccc;
+  border-radius:5px;
+  font-family:inherit;
+}
+
+/* Knappar */
+button {
+  background-color:#007bff;
+  color:white;
+  border:none;
+  border-radius:6px;
+  padding:10px 16px;
+  cursor:pointer;
+}
+button:hover { background-color:#0056b3; }
+
+/* Kollapsbara sektioner */
+.collapsible {
+  background-color:#007bff;
+  color:#fff;
+  cursor:pointer;
+  padding:12px 20px;
+  width:100%;
+  border:none;
+  border-radius:6px;
+  text-align:left;
+  font-size:15px;
+  margin-top:10px;
+}
+.collapsible:hover { background-color:#0056b3; }
+.content {
+  background:#f8f9fb;
+  border:1px solid #e0e4ea;
+  border-radius:6px;
+  margin-top:8px;
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.5s ease, padding 0.3s ease;
+  padding:0 15px;
+}
+.content.show { max-height:500px; padding:12px 15px; }
+
+/* Loggdata scroll */
+#logData {
+  background-color:#f1f4f8;
+  border:1px solid #dce3ec;
+  border-radius:6px;
+  padding:10px;
+  color:#222;
+  font-family:"Consolas", monospace;
+  max-height:300px;
+  overflow-y:auto;
+  white-space:pre-wrap;
+  line-height:1.4;
+}
+
+/* Tabell */
+table { width:100%; border-collapse:collapse; margin-top:10px; }
+th, td { border:1px solid #ccc; padding:8px; text-align:left; }
+th { background:#007bff; color:white; }
+tr:hover td { background:#f3f7ff; }
+</style>
 </head>
 <body>
-  <header>
-    <h1>Mentorfeedback</h1>
-    <p>För utvärdering av Linux‑utveckling</p>
-  </header>
 
-  <section>
-    <form>
-      <label>Namn:</label><br>
-      <input type="text"><br><br>
+<h1>Assignments Feedback Dashboard</h1>
 
-      <label>E‑post:</label><br>
-      <input type="email"><br><br>
+<section>
+  <h2>Välj Assignment</h2>
+  <select id="assignmentSelect">
+    <option value="">-- Välj --</option>
+  </select>
+  <div id="metadata"></div>
+</section>
 
-      <label>Feedback:</label><br>
-      <textarea rows="6" cols="50" placeholder="Skriv feedback här..."></textarea><br><br>
+<section>
+  <h2>Delmoment Bedömning</h2>
+  <input type="text" id="searchDelmoment" placeholder="Sök delmoment...">
+  <div id="delmomentContainer"></div>
+  <div id="noDelmomentMessage" style="display:none;color:#666;font-style:italic;">Inga delmoment för denna uppgift</div>
+</section>
 
-      <label>Nivåbedömning:</label><br>
-      <select>
-        <option>Nybörjare</option>
-        <option>Medel</option>
-        <option>Avancerad</option>
-        <option>Expert</option>
-      </select><br><br>
+<section>
+  <h2>Mentorinfo & Helhetsbedömning</h2>
+  <label for="mentorName">Mentor Namn:</label>
+  <input type="text" id="mentorName" placeholder="För- och efternamn">
 
-      <button type="submit">Skicka</button>
-    </form>
-  </section>
+  <label for="mentorEmail">Mentor E-post:</label>
+  <input type="email" id="mentorEmail" placeholder="mentor@domain.com">
 
-  <footer>
-    <p>© 2025 Kate Sofia Petersen</p>
-  </footer>
+  <label for="feedbackDate">Datum:</label>
+  <input type="date" id="feedbackDate">
+
+  <label for="overallScore">Helhetsbetyg (1-10):</label>
+  <input type="number" id="overallScore" min="1" max="10">
+
+  <label for="overallComment">Kommentar:</label>
+  <textarea id="overallComment" rows="3"></textarea>
+
+  <label for="statusSelect">Status:</label>
+  <select id="statusSelect">
+    <option>Godkänd</option>
+    <option>Behöver förbättring</option>
+  </select>
+
+  <button id="saveFeedback">Spara Feedback</button>
+</section>
+
+<section>
+  <h2>Kollapsbara Sektioner</h2>
+  <button class="collapsible">Visa Loggdata</button>
+  <div class="content"><pre id="logData">Välj en uppgift för att visa loggdata...</pre></div>
+
+  <button class="collapsible">Visa HTML-rapport</button>
+  <div class="content" id="htmlReportContent">
+    <iframe id="htmlReportFrame" style="width:100%;height:300px;border:none;"></iframe>
+  </div>
+</section>
+
+<section>
+  <h2>Feedbackhistorik</h2>
+  <input type="text" id="searchHistory" placeholder="Sök i historik...">
+  <table id="historyTable">
+    <thead><tr>
+      <th>Assignment</th><th>Mentor</th><th>E-post</th><th>Datum</th>
+      <th>Betyg</th><th>Status</th><th>Kommentar</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table>
+  <button id="exportCSV">Exportera CSV</button>
+  <button id="exportPDF">Exportera PDF</button>
+</section>
+
+<footer style="text-align:center;color:#777;margin-top:20px;">
+© 2025 Kate Sofia Petersen | Linux Portfolio Dashboard
+</footer>
+
+<script>
+
+// === Dynamisk Assignment-lista ===
+const assignmentSelect = document.getElementById("assignmentSelect");
+assignments.forEach((a,i)=>{
+  const opt=document.createElement("option");
+  opt.value=i;
+  opt.textContent=a.name;
+  assignmentSelect.appendChild(opt);
+});
+
+// === Händelser ===
+assignmentSelect.addEventListener("change",()=>{
+  const idx=assignmentSelect.value;
+  const meta=document.getElementById("metadata");
+  const logBox=document.getElementById("logData");
+  const htmlFrame=document.getElementById("htmlReportFrame");
+  const delContainer=document.getElementById("delmomentContainer");
+  const noMsg=document.getElementById("noDelmomentMessage");
+
+  if(idx===""){ meta.innerHTML=""; return; }
+  const a=assignments[idx];
+  meta.innerHTML=`<p><strong>Beskrivning:</strong> ${a.description}<br><strong>Datum:</strong> ${a.date}<br><strong>Status:</strong> ${a.status}</p>`;
+
+  delContainer.innerHTML="";
+  if(a.delmoment.length>0){
+    a.delmoment.forEach(dm=>{
+      const div=document.createElement("div");
+      div.innerHTML=`<label>${dm}</label><input type="number" min="1" max="10" placeholder="Betyg"><textarea placeholder="Kommentar"></textarea>`;
+      delContainer.appendChild(div);
+    });
+    noMsg.style.display="none";
+  } else {
+    noMsg.style.display="block";
+  }
+
+  logBox.textContent=a.loggdata;
+  htmlFrame.src=a.htmlReport;
+});
+
+// === Kollapsfunktion ===
+document.querySelectorAll(".collapsible").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const content=btn.nextElementSibling;
+    content.classList.toggle("show");
+  });
+});
+
+// === Spara feedback ===
+const historyTableBody=document.querySelector("#historyTable tbody");
+document.getElementById("saveFeedback").addEventListener("click",()=>{
+  const idx=assignmentSelect.value;
+  if(idx==="")return;
+  const a=assignments[idx];
+  const mentor=document.getElementById("mentorName").value;
+  const email=document.getElementById("mentorEmail").value;
+  const date=document.getElementById("feedbackDate").value;
+  const score=document.getElementById("overallScore").value;
+  const status=document.getElementById("statusSelect").value;
+  const comment=document.getElementById("overallComment").value;
+
+  const row=document.createElement("tr");
+  row.innerHTML=`<td>${a.name}</td><td>${mentor}</td><td>${email}</td><td>${date}</td><td>${score}</td><td>${status}</td><td>${comment}</td>`;
+  historyTableBody.appendChild(row);
+});
+
+// === Sök i historik ===
+document.getElementById("searchHistory").addEventListener("input",function(){
+  const term=this.value.toLowerCase();
+  document.querySelectorAll("#historyTable tbody tr").forEach(row=>{
+    row.style.display=row.textContent.toLowerCase().includes(term)?"":"none";
+  });
+});
+</script>
+
+<script>
+document.getElementById("saveFeedback").addEventListener("click", async () => {
+  const mentorName = document.getElementById("mentorName").value;
+  const mentorEmail = document.getElementById("mentorEmail").value;
+  const feedbackDate = document.getElementById("feedbackDate").value;
+  const overallScore = document.getElementById("overallScore").value;
+  const status = document.getElementById("statusSelect").value;
+  const comment = document.getElementById("overallComment").value;
+
+  if (!mentorEmail) {
+    alert("⚠️ Ange mentorns e-postadress innan du sparar!");
+    return;
+  }
+
+  const feedbackData = {
+    mentorName,
+    mentorEmail,
+    feedbackDate,
+    overallScore,
+    status,
+    comment
+  };
+
+  try {
+    const response = await fetch("http://127.0.0.1:5001/send-feedback", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(feedbackData)
+    });
+    const result = await response.json();
+    alert(result.message || "Feedback skickad!");
+  } catch (error) {
+    alert("Fel vid sändning: " + error.message);
+  }
+});
+</script>
+
+<script src="../scripts/load_assignment_data.js"></script>
+
 </body>
 </html>

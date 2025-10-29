@@ -1,0 +1,70 @@
+{
+  "id": "assignment_full_report",
+  "title": "Linux Assignment Submission – Complete Report",
+  "author": "Kate Sofia Petersen",
+  "description": "Fullständig sammanställning av alla 20 Linux-uppgifter med loggar, kommentarer och automation.",
+  "created": "2025-10-29",
+  "status": "Under granskning",
+  "parts": [
+    {
+      "id": "part1",
+      "name": "System- och användarinformation",
+      "objective": "Visa grundläggande systeminformation och aktiv användare.",
+      "files": ["objective.txt", "commands.txt", "comment.txt"]
+    },
+    {
+      "id": "part2",
+      "name": "Kommandon med flaggor och argument",
+      "objective": "Förstå hur flaggor och argument ändrar kommandobeteende.",
+      "files": ["objective.txt", "commands.txt", "comment.txt"]
+    },
+    {
+      "id": "part3",
+      "name": "Navigering i filsystemet",
+      "objective": "Öva på att byta katalog, lista filer och förstå hierarkin.",
+      "files": ["objective.txt", "commands.txt", "comment.txt"]
+    },
+    {
+      "id": "part4",
+      "name": "Fil- och kataloghantering",
+      "objective": "Skapa, ta bort och flytta filer och kataloger.",
+      "files": ["objective.txt", "commands.txt", "comment.txt"]
+    },
+    {
+      "id": "part5",
+      "name": "Rättigheter och ägarskap",
+      "objective": "Hantera filrättigheter och ägarskap via chmod och chown.",
+      "files": ["objective.txt", "commands.txt", "comment.txt"]
+    },
+    {
+      "id": "part6",
+      "name": "Filtrering och pipes",
+      "objective": "Filtrera data med grep, sort, uniq och pipe-kombinationer.",
+      "files": ["objective.txt", "commands.txt", "comment.txt"]
+    },
+    {
+      "id": "part7",
+      "name": "Processer och systemresurser",
+      "objective": "Analysera och övervaka processer med ps, top och systemctl.",
+      "files": ["objective.txt", "commands.txt", "comment.txt"]
+    },
+    {
+      "id": "part8",
+      "name": "Nätverk och anslutningar",
+      "objective": "Visa nätverksinformation och testa anslutningar.",
+      "files": ["objective.txt", "commands.txt", "comment.txt"]
+    },
+    {
+      "id": "part9",
+      "name": "Schemaläggning med cron",
+      "objective": "Automatisera kommandon och script med crontab.",
+      "files": ["objective.txt", "commands.txt", "comment.txt"]
+    },
+    {
+      "id": "part10",
+      "name": "Logghantering",
+      "objective": "Analysera loggar och skapa automatiserade rapporter.",
+      "files": ["objective.txt", "commands.txt", "comment.txt"]
+    }
+  ]
+}
